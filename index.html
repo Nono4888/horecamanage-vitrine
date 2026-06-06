@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#09090b">
+    <title data-i18n="meta_title">HorecaManage | Le Pilote Automatique de votre e-réputation</title>
+    <meta name="description" data-i18n="meta_description" content="L'IA qui répond à vos avis clients 24h/24 et 7j/7. Gagnez du temps, attirez plus de clients.">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" data-i18n="meta_title" content="HorecaManage | Le Pilote Automatique de votre e-réputation">
+    <meta property="og:description" data-i18n="meta_description" content="L'IA qui répond à vos avis clients 24h/24 et 7j/7.">
+    <meta property="og:image" content="https://horecamanage.com/og-image.png">
+    <meta property="og:url" content="https://horecamanage.com">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:locale:alternate" content="en_US,de_DE,es_ES,it_IT,nl_NL,pt_PT">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://horecamanage.com">
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2310b981'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 50:'#ecfdf5',100:'#d1fae5',200:'#a7f3d0',300:'#6ee7b7',400:'#34d399',500:'#10b981',600:'#059669',700:'#047857',800:'#065f46',900:'#064e3b',950:'#022c22' }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 1.5s linear infinite',
+                        'shimmer': 'shimmer 2s infinite',
+                    },
+                    keyframes: {
+                        float: { '0%,100%':{transform:'translateY(0px)'}, '50%':{transform:'translateY(-20px)'} },
+                        fadeInUp: { '0%':{opacity:'0',transform:'translateY(20px)'}, '100%':{opacity:'1',transform:'translateY(0)'} },
+                        fadeIn: { '0%':{opacity:'0'}, '100%':{opacity:'1'} },
+                        shimmer: { '0%':{backgroundPosition:'-200% 0'}, '100%':{backgroundPosition:'200% 0'} },
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { background-color:#09090b; color:#e4e4e7; }
+        .bg-grid-pattern {
+            background-image:linear-gradient(to right,#27272a 1px,transparent 1px),linear-gradient(to bottom,#27272a 1px,transparent 1px);
+            background-size:40px 40px;
+            mask-image:radial-gradient(circle at 50% 50%,black,transparent 80%);
+            -webkit-mask-image:radial-gradient(circle at 50% 50%,black,transparent 80%);
+        }
+        .glass-panel { background:rgba(24,24,27,0.6); backdrop-filter:blur(12px); border:1px solid rgba(63,63,70,0.4); }
+        .faq-answer { max-height:0; overflow:hidden; transition:max-height 0.4s,opacity 0.3s,margin 0.3s; opacity:0; margin-top:0; }
+        .faq-item.active .faq-answer { max-height:400px; opacity:1; margin-top:0.75rem; }
+        .faq-item.active h4 { color:#34d399; }
+        .faq-item { cursor:pointer; transition:all 0.3s; }
+        .faq-item:hover { border-color:#3f3f46; transform:translateX(4px); background:rgba(24,24,27,0.8); }
+        html { scroll-padding-top:5rem; scroll-behavior:smooth; }
+        @keyframes statusGlow { 0%,100%{box-shadow:0 0 5px rgba(16,185,129,0.5)} 50%{box-shadow:0 0 20px rgba(16,185,129,0.8)} }
+        .status-active { animation:statusGlow 2s ease-in-out infinite; }
+        @keyframes gradientShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+        .gradient-animate { background-size:200% 200%; animation:gradientShift 3s ease infinite; }
+        .card-hover { transition:all 0.4s cubic-bezier(0.4,0,0.2,1); }
+        .card-hover:hover { transform:translateY(-6px); box-shadow:0 20px 40px -12px rgba(0,0,0,0.5); }
+        .animate-on-scroll { opacity:0; transform:translateY(20px); transition:opacity 0.6s,transform 0.6s; }
+        .animate-on-scroll.visible { opacity:1; transform:translateY(0); }
+        .lang-dropdown { opacity:0; visibility:hidden; transform:translateY(-10px); transition:all 0.2s; }
+        .lang-dropdown.active { opacity:1; visibility:visible; transform:translateY(0); }
+        .lang-option { transition:all 0.15s; }
+        .lang-option:hover { background:rgba(255,255,255,0.05); }
+        .lang-option.active-lang { background:rgba(16,185,129,0.1); color:#34d399; }
+        ::selection { background:rgba(16,185,129,0.3); color:#fff; }
+        ::-webkit-scrollbar { width:8px; }
+        ::-webkit-scrollbar-track { background:#09090b; }
+        ::-webkit-scrollbar-thumb { background:#27272a; border-radius:4px; }
+        .lang-banner { animation:slideDown 0.4s ease-out; }
+        @keyframes slideDown { from{transform:translateY(-100%);opacity:0} to{transform:translateY(0);opacity:1} }
+        .sim-btn { transition:all 0.2s; }
+        .sim-btn.active { background:rgba(16,185,129,0.15); border-color:rgba(16,185,129,0.4); color:#34d399; }
+        .sim-review-content { transition:opacity 0.3s,transform 0.3s; }
+        .sim-review-content.switching { opacity:0; transform:translateY(10px); }
+        .timeline-pulse { animation:timelinePulse 2s ease-in-out infinite; }
+        @keyframes timelinePulse { 0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,0.4)} 50%{box-shadow:0 0 0 12px rgba(16,185,129,0)} }
+        .timeline-dot { transition:all 0.4s; }
+        .timeline-step.active .timeline-dot { background:#10b981; box-shadow:0 0 20px rgba(16,185,129,0.5); border-color:#10b981; }
+        .timeline-step.active .timeline-label { color:#34d399; }
+        .btn-loading .btn-text { display:none; }
+        .btn-loading .btn-spinner { display:inline-block; }
+        .btn-spinner { display:none; }
+        .shimmer-overlay { background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent); background-size:200% 100%; animation:shimmer 2s infinite; }
+        #scroll-progress { transition:width 0.1s linear; }
+        .typewriter-cursor::after { content:'|'; animation:blink 0.7s infinite; color:#34d399; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-500/30 selection:text-white flex flex-col min-h-screen">
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-0.5 bg-gradient-to-r from-brand-400 to-emerald-400 z-[60]" style="width:0%"></div>
+
+    <!-- Lang Banner -->
+    <div id="lang-banner" class="hidden fixed top-16 left-0 right-0 z-40 lang-banner">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-brand-600/90 backdrop-blur-sm text-white px-4 py-3 rounded-b-xl flex items-center justify-between shadow-lg">
+                <p id="lang-banner-text" class="text-sm font-medium"></p>
+                <div class="flex items-center gap-2">
+                    <button type="button" id="lang-banner-accept" class="text-sm font-semibold bg-white text-brand-700 px-3 py-1.5 rounded-lg hover:bg-brand-50 transition-colors" data-i18n="lang_banner_switch">Switch</button>
+                    <button type="button" id="lang-banner-dismiss" class="text-sm text-white/80 hover:text-white px-2 py-1.5 transition-colors">✕</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-zinc-800/50" role="banner">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="#" class="font-bold text-2xl tracking-tighter text-white flex items-center gap-2 group" aria-label="HorecaManage">
+                    <svg class="w-6 h-6 text-brand-500 transition-transform duration-300 group-hover:rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    HorecaManage
+                </a>
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="#solution" class="text-sm font-medium text-zinc-400 hover:text-white px-4 py-2 rounded-lg hover:bg-white/5 transition-all" data-i18n="nav_solution">Solution</a>
+                    <a href="#simulation" class="text-sm font-medium text-zinc-400 hover:text-white px-4 py-2 rounded-lg hover:bg-white/5 transition-all" data-i18n="nav_demo">Démo</a>
+                    <a href="#tarifs" class="text-sm font-medium text-zinc-400 hover:text-white px-4 py-2 rounded-lg hover:bg-white/5 transition-all" data-i18n="nav_pricing">Tarifs</a>
+                    <a href="#faq" class="text-sm font-medium text-zinc-400 hover:text-white px-4 py-2 rounded-lg hover:bg-white/5 transition-all" data-i18n="nav_faq">FAQ</a>
+                </nav>
+                <div class="hidden md:flex items-center gap-3">
+                    <div class="relative" id="lang-selector-container">
+                        <button type="button" id="lang-selector-btn" class="flex items-center gap-1.5 text-sm text-zinc-400 hover:text-white px-3 py-2 rounded-lg hover:bg-white/5 transition-all border border-transparent hover:border-zinc-700" aria-expanded="false">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+                            <span id="current-lang-label">FR</span>
+                            <svg class="w-3 h-3 transition-transform duration-200" id="lang-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div id="lang-dropdown" class="lang-dropdown absolute right-0 mt-2 w-56 bg-zinc-900 border border-zinc-700 rounded-xl shadow-2xl py-2 z-50">
+                            <div class="px-3 py-1.5 text-xs text-zinc-500 uppercase tracking-wider font-medium" data-i18n="lang_selector_title">Langues</div>
+                            <div class="h-px bg-zinc-800 my-1"></div>
+                            <button type="button" class="lang-option w-full flex items-center gap-3 px-3 py-2.5 text-sm" data-lang="fr"><span>🇫🇷</span><span>Français</span><span class="ml-auto text-xs text-zinc-600">FR</span></button>
+                            <button type="button" class="lang-option w-full flex items-center gap-3 px-3 py-2.5 text-sm" data-lang="en"><span>🇬🇧</span><span>English</span><span class="ml-auto text-xs text-zinc-600">EN</span></button>
+                            <button type="button" class="lang-option w-full flex items-center gap-3 px-3 py-2.5 text-sm" data-lang="de"><span>🇩🇪</span><span>Deutsch</span><span class="ml-auto text-xs text-zinc-600">DE</span></button>
+                            <button type="button" class="lang-option w-full flex items-center gap-3 px-3 py-2.5 text-sm" data-lang="es"><span>🇪🇸</span><span>Español</span><span class="ml-auto text-xs text-zinc-600">ES</span></button>
+                            <button type="button" class="lang-option w-full flex items-center gap-3 px-3 py-2.5 text-sm" data-lang="it"><span>🇮🇹</span><span>Italiano</span><span class="ml-auto text-xs text-zinc-600">IT</span></button>
+                            <button type="button" class="lang-option w-full flex items-center gap-3 px-3 py-2.5 text-sm" data-lang="nl"><span>🇳🇱</span><span>Nederlands</span><span class="ml-auto text-xs text-zinc-600">NL</span></button>
+                            <button type="button" class="lang-option w-full flex items-center gap-3 px-3 py-2.5 text-sm" data-lang="pt"><span>🇵🇹</span><span>Português</span><span class="ml-auto text-xs text-zinc-600">PT</span></button>
+                        </div>
+                    </div>
+                    <a href="https://app.horecamanage.com" class="text-sm font-semibold text-white bg-brand-600 hover:bg-brand-500 px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-brand-600/20 hover:shadow-brand-500/30 active:scale-95 shimmer-overlay" data-i18n="cta_trial">Essai gratuit</a>
+                </div>
+                <div class="flex md:hidden items-center gap-2">
+                    <button type="button" id="mobile-lang-btn" class="text-white p-2 hover:bg-zinc-800 rounded-lg" aria-label="Changer la langue"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg></button>
+                    <button type="button" id="mobile-menu-btn" class="text-white p-2 hover:bg-zinc-800 rounded-lg" aria-label="Menu principal" aria-expanded="false"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+                </div>
+            </div>
+
+            <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-zinc-800 mt-2">
+                <nav class="flex flex-col space-y-1 pt-4">
+                    <a href="#solution" class="text-sm font-medium text-zinc-400 hover:text-white px-4 py-3 rounded-lg hover:bg-white/5" data-i18n="nav_solution">Solution</a>
+                    <a href="#simulation" class="text-sm font-medium text-zinc-400 hover:text-white px-4 py-3 rounded-lg hover:bg-white/5" data-i18n="nav_demo">Démo</a>
+                    <a href="#tarifs" class="text-sm font-medium text-zinc-400 hover:text-white px-4 py-3 rounded-lg hover:bg-white/5" data-i18n="nav_pricing">Tarifs</a>
+                    <a href="#faq" class="text-sm font-medium text-zinc-400 hover:text-white px-4 py-3 rounded-lg hover:bg-white/5" data-i18n="nav_faq">FAQ</a>
+                    <div class="h-px bg-zinc-800 my-2"></div>
+                    <p class="text-xs text-zinc-500 uppercase tracking-wider px-4 py-1" data-i18n="lang_selector_title">Langues</p>
+                    <div class="grid grid-cols-2 gap-1 px-4">
+                        <button type="button" class="mobile-lang-option text-sm text-zinc-400 hover:text-white px-3 py-2 rounded-lg hover:bg-white/5 text-left" data-lang="fr">🇫🇷 Français</button>
+                        <button type="button" class="mobile-lang-option text-sm text-zinc-400 hover:text-white px-3 py-2 rounded-lg hover:bg-white/5 text-left" data-lang="en">🇬🇧 English</button>
+                        <button type="button" class="mobile-lang-option text-sm text-zinc-400 hover:text-white px-3 py-2 rounded-lg hover:bg-white/5 text-left" data-lang="de">🇩🇪 Deutsch</button>
+                        <button type="button" class="mobile-lang-option text-sm text-zinc-400 hover:text-white px-3 py-2 rounded-lg hover:bg-white/5 text-left" data-lang="es">🇪🇸 Español</button>
+                        <button type="button" class="mobile-lang-option text-sm text-zinc-400 hover:text-white px-3 py-2 rounded-lg hover:bg-white/5 text-left" data-lang="it">🇮🇹 Italiano</button>
+                        <button type="button" class="mobile-lang-option text-sm text-zinc-400 hover:text-white px-3 py-2 rounded-lg hover:bg-white/5 text-left" data-lang="nl">🇳🇱 Nederlands</button>
+                        <button type="button" class="mobile-lang-option text-sm text-zinc-400 hover:text-white px-3 py-2 rounded-lg hover:bg-white/5 text-left" data-lang="pt">🇵🇹 Português</button>
+                    </div>
+                    <a href="https://app.horecamanage.com" class="text-sm font-semibold text-white bg-brand-600 hover:bg-brand-500 px-4 py-3 rounded-xl text-center mt-2 shadow-lg shadow-brand-600/20" data-i18n="cta_trial_mobile">Essai gratuit (14 jours)</a>
+                </nav>
+            </div>
+            
+            <div id="mobile-lang-menu" class="hidden md:hidden pb-4 border-t border-zinc-800 mt-2">
+                <p class="text-xs text-zinc-500 uppercase tracking-wider px-4 py-3" data-i18n="lang_selector_title">Choisir la langue</p>
+                <div class="grid grid-cols-2 gap-1 px-4">
+                    <button type="button" class="mobile-lang-option text-sm text-zinc-400 hover:text-white px-3 py-2.5 rounded-lg hover:bg-white/5 text-left" data-lang="fr">🇫🇷 Français</button>
+                    <button type="button" class="mobile-lang-option text-sm text-zinc-400 hover:text-white px-3 py-2.5 rounded-lg hover:bg-white/5 text-left" data-lang="en">🇬🇧 English</button>
+                    <button type="button" class="mobile-lang-option text-sm text-zinc-400 hover:text-white px-3 py-2.5 rounded-lg hover:bg-white/5 text-left" data-lang="de">🇩🇪 Deutsch</button>
+                    <button type="button" class="mobile-lang-option text-sm text-zinc-400 hover:text-white px-3 py-2.5 rounded-lg hover:bg-white/5 text-left" data-lang="es">🇪🇸 Español</button>
+                    <button type="button" class="mobile-lang-option text-sm text-zinc-400 hover:text-white px-3 py-2.5 rounded-lg hover:bg-white/5 text-left" data-lang="it">🇮🇹 Italiano</button>
+                    <button type="button" class="mobile-lang-option text-sm text-zinc-400 hover:text-white px-3 py-2.5 rounded-lg hover:bg-white/5 text-left" data-lang="nl">🇳🇱 Nederlands</button>
+                    <button type="button" class="mobile-lang-option text-sm text-zinc-400 hover:text-white px-3 py-2.5 rounded-lg hover:bg-white/5 text-left" data-lang="pt">🇵🇹 Português</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="flex-grow pt-24 pb-16 relative overflow-hidden" role="main">
+        <div class="absolute inset-0 z-0 bg-grid-pattern opacity-20" aria-hidden="true"></div>
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand-600/10 blur-[150px] rounded-full z-0 pointer-events-none animate-pulse-slow" aria-hidden="true"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center pt-16 md:pt-24">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-sm font-medium mb-8 status-active animate-fade-in-up">
+                <span class="relative flex h-2.5 w-2.5">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span>
+                </span>
+                <span data-i18n="hero_badge">Le Pilote Automatique de votre e-réputation</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tighter leading-tight mb-6 animate-fade-in-up">
+                <span data-i18n="hero_title_1">Votre e-réputation gérée</span><br class="hidden md:block">
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-400 via-emerald-300 to-brand-400 gradient-animate" data-i18n="hero_title_2">24h/24 et 7j/7. ⚡</span>
+            </h1>
+            
+            <p class="mt-6 text-xl md:text-2xl text-zinc-400 max-w-3xl mx-auto mb-4 leading-relaxed font-light animate-fade-in-up" style="animation-delay: 0.2s;" data-i18n="hero_subtitle">
+                L'IA qui répond à vos avis clients jour et nuit, sans aucune interruption. Gagnez du temps, attirez plus de clients et boostez votre référencement sans effort.
+            </p>
+
+            <p class="text-brand-400/80 text-sm font-medium mb-10 animate-fade-in-up" style="animation-delay: 0.3s;">
+                📈 <span data-i18n="hero_stat_1">+32% d'avis répondus en moyenne pour nos utilisateurs</span> • 
+                <span class="text-zinc-500">⭐ <span data-i18n="hero_stat_2">4.8/5 satisfaction client</span></span>
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.4s;">
+                <a href="https://app.horecamanage.com" class="group inline-flex justify-center items-center px-8 py-4 text-base font-semibold text-white bg-brand-600 hover:bg-brand-500 rounded-xl shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)] hover:shadow-[0_0_60px_-10px_rgba(16,185,129,0.7)] transition-all hover:scale-105 active:scale-95" data-i18n="hero_cta_main">
+                    Démarrer mon essai gratuit (14 jours)
+                    <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </a>
+                <a href="#simulation" class="inline-flex justify-center items-center px-8 py-4 text-base font-semibold text-zinc-300 bg-zinc-800/50 hover:bg-zinc-800 rounded-xl border border-zinc-700 hover:border-zinc-600 transition-all" data-i18n="hero_cta_demo">
+                    Voir la démo
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </a>
+            </div>
+            
+            <p class="text-zinc-500 text-sm mt-4 animate-fade-in" style="animation-delay: 0.6s;" data-i18n="hero_reassurance">
+                ✅ Sans engagement • 💳 Sans carte bancaire • 🚀 Configuration en 2 minutes
+            </p>
+        </div>
+    </main>
+
+    <!-- Section Problème / Solution -->
+    <section id="solution" class="py-24 bg-zinc-900/50 border-y border-zinc-800/50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <article class="space-y-6 p-8 rounded-2xl bg-zinc-950 border border-zinc-800 shadow-xl card-hover animate-on-scroll">
+                    <div class="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center border border-red-500/20">
+                        <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white" data-i18n="problem_title">Le Constat Épuisant</h3>
+                    <p class="text-zinc-400 text-lg leading-relaxed" data-i18n="problem_text_1">
+                        80% des restaurateurs sacrifient leur visibilité en ligne par manque de temps. Après un gros service, la dernière chose que vous voulez faire, c'est trouver la formule parfaite pour répondre aux avis du jour.
+                    </p>
+                    <p class="text-zinc-500 text-base leading-relaxed" data-i18n="problem_text_2">
+                        Résultat : une note qui stagne et des clients potentiels qui passent leur chemin.
+                    </p>
+                </article>
+
+                <article class="space-y-6 p-8 rounded-2xl bg-brand-900/20 border border-brand-500/30 shadow-2xl shadow-brand-900/20 relative overflow-hidden card-hover animate-on-scroll">
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-brand-500/20 blur-3xl rounded-full" aria-hidden="true"></div>
+                    <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-emerald-500/10 blur-3xl rounded-full" aria-hidden="true"></div>
+                    <div class="w-14 h-14 rounded-2xl bg-brand-500/20 flex items-center justify-center border border-brand-500/40 relative z-10">
+                        <svg class="w-7 h-7 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white relative z-10" data-i18n="solution_title">La Solution HorecaManage</h3>
+                    <p class="text-zinc-300 text-lg leading-relaxed relative z-10" data-i18n="solution_text_1">
+                        En plein service ou pendant votre repos, notre IA veille en permanence. Elle détecte chaque nouvel avis, analyse le sentiment, et rédige une réponse professionnelle, chaleureuse et optimisée SEO.
+                    </p>
+                    <p class="text-brand-300 text-base leading-relaxed relative z-10 font-medium" data-i18n="solution_text_2">
+                        Votre bureau numérique est toujours impeccable.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Simulation Interactive avec Timeline -->
+    <section id="simulation" class="py-24 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 animate-on-scroll">
+                <span class="inline-block bg-brand-500/10 text-brand-400 text-xs font-medium px-3 py-1 rounded-full mb-4" data-i18n="demo_badge">🎬 Démonstration en direct</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" data-i18n="demo_title">La magie opère 24h/24.</h2>
+                <p class="text-zinc-400 text-lg mb-8" data-i18n="demo_subtitle">Voyez comment l'IA HorecaManage réagit instantanément avec pertinence.</p>
+                
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button type="button" class="sim-btn px-5 py-2.5 rounded-xl text-sm font-medium border border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-600 transition-all hover:scale-105" data-scenario="negative" data-i18n="demo_scenario_negative">😤 Avis négatif</button>
+                    <button type="button" class="sim-btn active px-5 py-2.5 rounded-xl text-sm font-medium border border-brand-500/40 bg-brand-500/10 text-brand-400 transition-all hover:scale-105" data-scenario="mixed" data-i18n="demo_scenario_mixed">😐 Avis mitigé</button>
+                    <button type="button" class="sim-btn px-5 py-2.5 rounded-xl text-sm font-medium border border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-600 transition-all hover:scale-105" data-scenario="positive" data-i18n="demo_scenario_positive">🤩 Avis positif</button>
+                </div>
+            </div>
+
+            <div class="max-w-2xl mx-auto mb-8 animate-on-scroll">
+                <div class="flex items-center justify-between relative" id="sim-timeline">
+                    <div class="absolute top-5 left-0 right-0 h-0.5 bg-zinc-800" aria-hidden="true"></div>
+                    
+                    <div class="timeline-step active relative z-10 flex flex-col items-center gap-2" id="step-1">
+                        <div class="timeline-dot w-10 h-10 rounded-full bg-zinc-800 border-2 border-zinc-700 flex items-center justify-center transition-all duration-500">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                        </div>
+                        <span class="timeline-label text-xs text-zinc-500 font-medium transition-colors duration-500" data-i18n="timeline_step1">Avis reçu</span>
+                        <span class="text-[10px] text-zinc-600 font-mono">23:30:00</span>
+                    </div>
+                    
+                    <div class="timeline-step active relative z-10 flex flex-col items-center gap-2" id="step-2">
+                        <div class="timeline-dot w-10 h-10 rounded-full bg-zinc-800 border-2 border-zinc-700 flex items-center justify-center transition-all duration-500">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                        </div>
+                        <span class="timeline-label text-xs text-zinc-500 font-medium transition-colors duration-500" data-i18n="timeline_step2">IA analyse</span>
+                        <span class="text-[10px] text-zinc-600 font-mono">23:30:12</span>
+                    </div>
+                    
+                    <div class="timeline-step active relative z-10 flex flex-col items-center gap-2" id="step-3">
+                        <div class="timeline-dot w-10 h-10 rounded-full bg-zinc-800 border-2 border-zinc-700 flex items-center justify-center transition-all duration-500">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <span class="timeline-label text-xs text-zinc-500 font-medium transition-colors duration-500" data-i18n="timeline_step3">Réponse publiée</span>
+                        <span class="text-[10px] text-zinc-600 font-mono">23:31:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-2xl p-4 md:p-8 shadow-2xl max-w-2xl mx-auto relative card-hover animate-on-scroll">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-zinc-800 text-xs font-mono text-zinc-300 px-4 py-1.5 rounded-full border border-zinc-700 shadow-lg flex items-center gap-2 status-active">
+                    <span class="w-2 h-2 rounded-full bg-brand-400"></span>
+                    <span data-i18n="demo_status">Système actif : 13:30</span>
+                </div>
+
+                <div id="sim-review-card" class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 mb-6 mt-4 sim-review-content">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex items-center gap-3">
+                            <div id="sim-avatar" class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-600 to-emerald-600 flex items-center justify-center text-white font-bold">M</div>
+                            <div>
+                                <h4 id="sim-author" class="text-white font-medium">Marc D.</h4>
+                                <div id="sim-stars" class="flex items-center gap-1 text-yellow-500 text-sm">
+                                    ★★★★<span class="text-zinc-600">★</span>
+                                    <span class="text-zinc-500 text-xs ml-2" data-i18n="demo_time_ago">il y a 2 minutes</span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-xs text-zinc-500 font-mono bg-zinc-800 px-2 py-1 rounded">13:30</span>
+                    </div>
+                    <p id="sim-review-text" class="text-zinc-300 text-sm md:text-base leading-relaxed">
+                        "Un peu d'attente pendant le service, c'était un peu long. Mais franchement, les crêpes sont excellentes ! Pâte fine et croustillante. Je recommande."
+                    </p>
+                </div>
+
+                <div class="flex justify-center -my-2 relative z-10">
+                    <div class="bg-brand-500/20 p-2 rounded-full border border-brand-500/30 timeline-pulse">
+                        <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                    </div>
+                </div>
+
+                <div class="bg-brand-950/50 border border-brand-800/50 rounded-xl p-5 ml-4 md:ml-12 relative sim-review-content" id="sim-response-card">
+                    <div class="absolute -left-3 top-6 w-6 h-px bg-brand-800/50" aria-hidden="true"></div>
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-brand-600 flex items-center justify-center text-white shadow-lg shadow-brand-600/30">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-brand-300 font-medium flex items-center gap-2 flex-wrap">
+                                    <span data-i18n="demo_response_name">La Direction</span>
+                                    <span class="bg-brand-500/20 text-brand-400 text-[10px] uppercase px-2 py-0.5 rounded-full border border-brand-500/30" data-i18n="demo_response_badge">🤖 Généré par IA</span>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-brand-500 font-mono bg-brand-950/50 px-2 py-1 rounded">13:31</span>
+                        </div>
+                    </div>
+                    <p id="sim-response-text" class="text-brand-100/90 text-sm md:text-base leading-relaxed">
+                        "Bonjour Marc, merci pour votre retour ! Nous sommes ravis que nos crêpes vous aient conquis. Nous prenons bonne note de votre remarque sur l'attente. Au plaisir de vous régaler à nouveau !"
+                    </p>
+                    
+                    <div class="mt-4 flex items-center gap-3 text-xs text-brand-400/60 flex-wrap">
+                        <span class="flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span data-i18n="demo_speed">Répondu en 47 secondes</span>
+                        </span>
+                        <span class="text-zinc-600">•</span>
+                        <span class="flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span id="sim-tone-label" data-i18n="demo_tone">Ton : Chaleureux</span>
+                        </span>
+                        <span class="text-zinc-600">•</span>
+                        <span class="flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                            <span data-i18n="demo_seo">SEO optimisé</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Témoignage chiffré -->
+    <section class="py-16 border-t border-zinc-800/50 bg-zinc-950/50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel rounded-2xl p-6 md:p-10 animate-on-scroll">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-1 text-brand-400">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <blockquote class="text-lg md:text-xl text-white font-medium leading-relaxed" data-i18n="testimonial_quote">
+                            "Je passais 45 minutes par jour à répondre aux avis. Maintenant : 0 minute. Et ma note Google a gagné 0,3 étoile en 2 mois."
+                        </blockquote>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-500 to-emerald-500 flex items-center justify-center text-white font-bold text-sm">MD</div>
+                            <div>
+                                <p class="text-white font-medium text-sm">Marie D.</p>
+                                <p class="text-zinc-500 text-xs" data-i18n="testimonial_place">Le Comptoir • Restaurant bistronomique</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 text-center">
+                            <p class="text-3xl md:text-4xl font-extrabold text-brand-400 mb-1">0<span class="text-lg"> min</span></p>
+                            <p class="text-zinc-500 text-xs" data-i18n="testimonial_stat1">Temps passé par jour</p>
+                        </div>
+                        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 text-center">
+                            <p class="text-3xl md:text-4xl font-extrabold text-brand-400 mb-1">+0,3<span class="text-lg"> ★</span></p>
+                            <p class="text-zinc-500 text-xs" data-i18n="testimonial_stat2">Note Google gagnée</p>
+                        </div>
+                        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 text-center">
+                            <p class="text-3xl md:text-4xl font-extrabold text-brand-400 mb-1">100<span class="text-lg">%</span></p>
+                            <p class="text-zinc-500 text-xs" data-i18n="testimonial_stat3">Avis répondus</p>
+                        </div>
+                        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 text-center">
+                            <p class="text-3xl md:text-4xl font-extrabold text-brand-400 mb-1">2<span class="text-lg"> mois</span></p>
+                            <p class="text-zinc-500 text-xs" data-i18n="testimonial_stat4">Pour voir les résultats</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOUVEAU : Section Compteur de temps économisé -->
+    <section class="py-16 border-t border-zinc-800/50 bg-zinc-950/50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center animate-on-scroll">
+            <span class="inline-block bg-brand-500/10 text-brand-400 text-xs font-medium px-3 py-1 rounded-full mb-4">⏱️</span>
+            <p class="text-zinc-400 text-sm mb-4" data-i18n="counter_subtitle">Cette semaine, HorecaManage vous a fait gagner :</p>
+            <div class="flex items-center justify-center gap-4 md:gap-8">
+                <div class="text-center">
+                    <p class="text-5xl md:text-6xl font-extrabold text-brand-400 mb-1" id="counter-hours">0</p>
+                    <p class="text-zinc-500 text-xs uppercase tracking-wider" data-i18n="counter_hours">Heures</p>
+                </div>
+                <span class="text-4xl text-zinc-600 font-light">:</span>
+                <div class="text-center">
+                    <p class="text-5xl md:text-6xl font-extrabold text-brand-400 mb-1" id="counter-minutes">0</p>
+                    <p class="text-zinc-500 text-xs uppercase tracking-wider" data-i18n="counter_minutes">Minutes</p>
+                </div>
+            </div>
+            <p class="text-zinc-600 text-xs mt-4" data-i18n="counter_note">Basé sur 15 avis par semaine à 3 minutes par réponse</p>
+        </div>
+    </section>
+
+    <!-- CTA Secondaire -->
+    <div class="text-center py-12 bg-gradient-to-b from-transparent to-zinc-950/50">
+        <div class="max-w-2xl mx-auto px-4 animate-on-scroll">
+            <a href="https://app.horecamanage.com" class="group inline-flex justify-center items-center px-8 py-4 text-base font-semibold text-white bg-brand-600 hover:bg-brand-500 rounded-xl shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)] hover:shadow-[0_0_60px_-10px_rgba(16,185,129,0.7)] transition-all hover:scale-105 active:scale-95" data-i18n="cta_secondary">
+                🚀 Démarrer mon essai gratuit (14 jours)
+                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </a>
+            <p class="text-zinc-500 text-sm mt-3" data-i18n="cta_reassurance">Sans engagement • Sans carte bancaire</p>
+        </div>
+    </div>
+
+    <!-- Section Confiance -->
+    <section class="py-16 border-t border-zinc-800/50 bg-zinc-950/50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-zinc-500 text-sm uppercase tracking-wider mb-8" data-i18n="trust_title">Ils nous font confiance</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
+                <div class="flex flex-col items-center justify-center gap-2 h-20 w-full max-w-[160px] bg-zinc-800/50 rounded-xl px-4 border border-zinc-800 hover:border-zinc-700 transition-colors">
+                    <span class="text-zinc-300 font-semibold text-sm">🍽️ Le Comptoir</span>
+                    <span class="text-zinc-600 text-[10px]">Bistronomique</span>
+                </div>
+                <div class="flex flex-col items-center justify-center gap-2 h-20 w-full max-w-[160px] bg-zinc-800/50 rounded-xl px-4 border border-zinc-800 hover:border-zinc-700 transition-colors">
+                    <span class="text-zinc-300 font-semibold text-sm">🏨 Maison Albar</span>
+                    <span class="text-zinc-600 text-[10px]">Hôtel-Restaurant</span>
+                </div>
+                <div class="flex flex-col items-center justify-center gap-2 h-20 w-full max-w-[160px] bg-zinc-800/50 rounded-xl px-4 border border-zinc-800 hover:border-zinc-700 transition-colors">
+                    <span class="text-zinc-300 font-semibold text-sm">🥐 Paul & Fils</span>
+                    <span class="text-zinc-600 text-[10px]">Boulangerie</span>
+                </div>
+                <div class="flex flex-col items-center justify-center gap-2 h-20 w-full max-w-[160px] bg-zinc-800/50 rounded-xl px-4 border border-zinc-800 hover:border-zinc-700 transition-colors">
+                    <span class="text-zinc-300 font-semibold text-sm">🍕 Basilic & Co</span>
+                    <span class="text-zinc-600 text-[10px]">Pizzeria</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Tarifs -->
+    <section id="tarifs" class="py-24 bg-zinc-950 border-t border-zinc-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-on-scroll">
+                <div class="inline-block mb-4">
+                    <span class="bg-brand-500/10 text-brand-400 text-xs font-medium px-3 py-1.5 rounded-full border border-brand-500/20" data-i18n="pricing_badge">🎉 Offre de lancement • Prix garanti à vie</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" data-i18n="pricing_title">Un investissement rentable.</h2>
+                <p class="text-zinc-400 text-lg" data-i18n="pricing_subtitle">Choisissez le pilote automatique adapté à votre établissement.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto items-center">
+                <article class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 flex flex-col hover:border-zinc-600 transition-all duration-300 card-hover animate-on-scroll relative">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-semibold text-white mb-2" data-i18n="pricing_basic_name">Essentielle</h3>
+                        <p class="text-zinc-400 text-sm" data-i18n="pricing_basic_desc">Pour les restaurateurs concentrés sur l'essentiel.</p>
+                    </div>
+                    <div class="mb-2">
+                        <span class="text-5xl font-extrabold text-white">29 €</span>
+                        <span class="text-zinc-500 font-medium" data-i18n="pricing_per_month">/ mois</span>
+                    </div>
+                    <p class="text-zinc-600 text-xs mb-8" data-i18n="pricing_basic_daily">Soit moins d'1€ par jour</p>
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-center gap-3 text-zinc-300">
+                            <svg class="w-5 h-5 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span data-i18n="pricing_basic_feature_1">Connexion Google Maps</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-zinc-300">
+                            <svg class="w-5 h-5 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span data-i18n="pricing_basic_feature_2">Publication automatique après validation</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-zinc-300">
+                            <svg class="w-5 h-5 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span data-i18n="pricing_basic_feature_3">Rapport d'activité quotidien</span>
+                        </li>
+                    </ul>
+                    <a href="https://app.horecamanage.com" class="w-full block text-center py-3.5 px-4 rounded-xl font-medium text-white bg-zinc-800 hover:bg-zinc-700 transition-all border border-zinc-700 hover:border-zinc-600 active:scale-95" data-i18n="pricing_cta">Démarrer l'essai</a>
+                </article>
+
+                <article class="bg-zinc-900 border border-brand-500 ring-2 ring-brand-500/20 rounded-3xl p-8 flex flex-col relative shadow-[0_0_60px_-15px_rgba(16,185,129,0.3)] transition-all duration-300 card-hover animate-on-scroll md:scale-105 z-10">
+                    <div class="absolute top-0 right-8 -translate-y-1/2 bg-gradient-to-r from-brand-500 to-emerald-500 text-white text-xs font-bold uppercase tracking-wider py-1.5 px-4 rounded-full shadow-lg shadow-brand-500/30" data-i18n="pricing_popular">⭐ La plus populaire</div>
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-semibold text-white mb-2" data-i18n="pricing_pro_name">Intégrale</h3>
+                        <p class="text-zinc-400 text-sm" data-i18n="pricing_pro_desc">La domination totale de votre e-réputation.</p>
+                    </div>
+                    <div class="mb-2">
+                        <span class="text-5xl font-extrabold text-white">39 €</span>
+                        <span class="text-zinc-500 font-medium" data-i18n="pricing_per_month">/ mois</span>
+                    </div>
+                    <p class="text-zinc-600 text-xs mb-8" data-i18n="pricing_pro_daily">Soit moins d'1,30€ par jour</p>
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-center gap-3 text-zinc-200 font-medium">
+                            <svg class="w-5 h-5 text-brand-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span data-i18n="pricing_pro_feature_1">Google Maps, TheFork, TripAdvisor, Zenchef</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-zinc-300">
+                            <svg class="w-5 h-5 text-brand-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span data-i18n="pricing_pro_feature_2">Réponses IA multi-langues avec validation humaine</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-zinc-300">
+                            <svg class="w-5 h-5 text-brand-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span data-i18n="pricing_pro_feature_3">Contrôle du ton (Chaleureux, formel, fun)</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-zinc-300">
+                            <svg class="w-5 h-5 text-brand-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span data-i18n="pricing_pro_feature_4">Publication automatique après validation</span>
+                        </li>
+                    </ul>
+                    <a href="https://app.horecamanage.com" class="w-full block text-center py-3.5 px-4 rounded-xl font-semibold text-white bg-gradient-to-r from-brand-600 to-emerald-600 hover:from-brand-500 hover:to-emerald-500 transition-all shadow-lg shadow-brand-600/30 hover:shadow-brand-500/40 active:scale-95" data-i18n="pricing_cta">Démarrer l'essai</a>
+                </article>
+            </div>
+            
+            <div class="text-center mt-10 animate-on-scroll">
+                <p class="text-zinc-500 text-sm flex items-center justify-center gap-2" data-i18n="pricing_guarantee">
+                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    Essai gratuit de 14 jours • Sans engagement • Annulation en 1 clic
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section FAQ -->
+    <section id="faq" class="py-24 relative overflow-hidden">
+        <div class="absolute top-1/2 right-0 w-[400px] h-[400px] bg-brand-600/5 blur-[150px] rounded-full pointer-events-none" aria-hidden="true"></div>
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 animate-on-scroll">
+                <span class="inline-block bg-brand-500/10 text-brand-400 text-xs font-medium px-3 py-1 rounded-full mb-4" data-i18n="faq_badge">💬 Questions fréquentes</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" data-i18n="faq_title">On répond à vos questions.</h2>
+                <p class="text-zinc-400 text-lg" data-i18n="faq_subtitle">Transparence et sécurité avant tout.</p>
+            </div>
+
+            <div class="space-y-4">
+                <article class="faq-item active bg-zinc-900 border border-zinc-700 rounded-2xl p-6 animate-on-scroll">
+                    <div class="flex justify-between items-start">
+                        <h4 class="text-lg font-semibold text-brand-400 mb-0 flex-grow pr-4" data-i18n="faq_q1">La connexion est-elle sécurisée ?</h4>
+                        <svg class="w-5 h-5 text-brand-400 flex-shrink-0 mt-1 transform transition-transform duration-300 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                    <div class="faq-answer" style="max-height: 400px; opacity: 1; margin-top: 0.75rem;">
+                        <p class="text-zinc-400 leading-relaxed" data-i18n="faq_a1">Absolument. API officielles OAuth 2.0. Aucun stockage de mot de passe.</p>
+                    </div>
+                </article>
+                <article class="faq-item bg-zinc-900 border border-zinc-800 rounded-2xl p-6 animate-on-scroll">
+                    <div class="flex justify-between items-start">
+                        <h4 class="text-lg font-semibold text-white mb-0 flex-grow pr-4" data-i18n="faq_q2">L'IA peut-elle être inappropriée ?</h4>
+                        <svg class="w-5 h-5 text-zinc-500 flex-shrink-0 mt-1 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-zinc-400 leading-relaxed" data-i18n="faq_a2">Non. IA entraînée pour la restauration. Ton courtois et diplomatique.</p>
+                    </div>
+                </article>
+                <article class="faq-item bg-zinc-900 border border-zinc-800 rounded-2xl p-6 animate-on-scroll">
+                    <div class="flex justify-between items-start">
+                        <h4 class="text-lg font-semibold text-white mb-0 flex-grow pr-4" data-i18n="faq_q3">Puis-je modifier les réponses ?</h4>
+                        <svg class="w-5 h-5 text-zinc-500 flex-shrink-0 mt-1 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-zinc-400 leading-relaxed" data-i18n="faq_a3">Oui. Tableau de bord complet pour lire, éditer ou supprimer.</p>
+                    </div>
+                </article>
+                <article class="faq-item bg-zinc-900 border border-zinc-800 rounded-2xl p-6 animate-on-scroll">
+                    <div class="flex justify-between items-start">
+                        <h4 class="text-lg font-semibold text-white mb-0 flex-grow pr-4" data-i18n="faq_q4">Comment fonctionne l'essai de 14 jours ?</h4>
+                        <svg class="w-5 h-5 text-zinc-500 flex-shrink-0 mt-1 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-zinc-400 leading-relaxed" data-i18n="faq_a4">Accès complet 14 jours, sans carte bancaire. Annulation simple.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Email Capture -->
+    <section class="py-16 border-t border-zinc-800/50 bg-zinc-950">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center animate-on-scroll">
+            <span class="inline-block bg-brand-500/10 text-brand-400 text-xs font-medium px-3 py-1 rounded-full mb-4" data-i18n="email_badge">📧 Restons en contact</span>
+            <h3 class="text-2xl font-bold text-white mb-3" data-i18n="email_title">Pas encore prêt ?</h3>
+            <p class="text-zinc-400 mb-6" data-i18n="email_subtitle">Recevez nos conseils e-réputation par email.</p>
+            <form id="email-capture-form" class="flex flex-col sm:flex-row gap-3 justify-center" onsubmit="handleEmailSubmit(event)">
+                <input type="email" id="email-input" data-i18n-placeholder="email_placeholder" placeholder="votre@email.com" required class="px-4 py-3.5 bg-zinc-900 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all flex-grow max-w-md" autocomplete="email">
+                <button type="submit" class="px-6 py-3.5 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-xl transition-all shadow-lg shadow-brand-600/20 hover:shadow-brand-500/30 active:scale-95 btn-loading w-full sm:w-48 h-[52px]" id="email-submit-btn">
+                    <span class="btn-text" style="display: block;" data-i18n="email_button">Recevoir la démo</span>
+                    <span class="btn-spinner">
+                        <svg class="animate-spin-slow h-5 w-5 mx-auto text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </span>
+                </button>
+            </form>
+            <p class="text-zinc-600 text-xs mt-3" data-i18n="email_nospam">Pas de spam. Désabonnement 1 clic.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-zinc-800 bg-zinc-950 pt-12 pb-8" role="contentinfo">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-1">
+                    <div class="flex items-center gap-2 text-white font-bold text-xl mb-3">
+                        <svg class="w-5 h-5 text-brand-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        HorecaManage
+                    </div>
+                    <p class="text-zinc-500 text-sm" data-i18n="footer_tagline">Le pilote automatique de votre e-réputation.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-3" data-i18n="footer_nav">Navigation</h4>
+                    <nav class="flex flex-col space-y-2" aria-label="Liens rapides">
+                        <a href="#solution" class="text-sm text-zinc-500 hover:text-white transition-colors" data-i18n="nav_solution">Solution</a>
+                        <a href="#tarifs" class="text-sm text-zinc-500 hover:text-white transition-colors" data-i18n="nav_pricing">Tarifs</a>
+                        <a href="#faq" class="text-sm text-zinc-500 hover:text-white transition-colors" data-i18n="nav_faq">FAQ</a>
+                    </nav>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-3" data-i18n="footer_legal">Légal</h4>
+                    <nav class="flex flex-col space-y-2" aria-label="Liens légaux">
+                        <a href="#" class="text-sm text-zinc-500 hover:text-white transition-colors" data-i18n="footer_legal_mentions">Mentions Légales</a>
+                        <a href="#" class="text-sm text-zinc-500 hover:text-white transition-colors" data-i18n="footer_legal_terms">CGV / CGU</a>
+                        <a href="#" class="text-sm text-zinc-500 hover:text-white transition-colors" data-i18n="footer_legal_privacy">Confidentialité</a>
+                    </nav>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-3" data-i18n="footer_contact">Contact</h4>
+                    <a href="mailto:contact@horecamanage.com" class="text-sm text-zinc-500 hover:text-white transition-colors">contact@horecamanage.com</a>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-zinc-600">&copy; 2026 HorecaManage. <span data-i18n="footer_rights">Tous droits réservés.</span></p>
+                <p class="text-sm text-zinc-600" data-i18n="footer_made">Fait avec ❤️ pour les restaurateurs</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts et Traductions -->
+    <script>
+        const translations = {
+            available: ['fr', 'en', 'de', 'es', 'it', 'nl', 'pt'],
+            langNames: { fr: 'Français', en: 'English', de: 'Deutsch', es: 'Español', it: 'Italiano', nl: 'Nederlands', pt: 'Português' },
+            langCodes: { fr: 'FR', en: 'EN', de: 'DE', es: 'ES', it: 'IT', nl: 'NL', pt: 'PT' },
+            
+            lang_banner_switch: { fr: 'Changer', en: 'Switch', de: 'Wechseln', es: 'Cambiar', it: 'Cambia', nl: 'Wissel', pt: 'Mudar' },
+            lang_banner_text: {
+                fr: (n) => `Vous semblez naviguer depuis une région ${n}. Passer en ${n} ?`,
+                en: (n) => `We detected you're from a ${n}-speaking region. Switch to ${n}?`,
+                de: (n) => `Sie scheinen aus einer ${n}-sprachigen Region zu kommen. Zu ${n} wechseln?`,
+                es: (n) => `Parece que navegas desde una región de habla ${n}. ¿Cambiar a ${n}?`,
+                it: (n) => `Sembri navigare da una regione di lingua ${n}. Passare a ${n}?`,
+                nl: (n) => `U lijkt te browsen vanuit een ${n}-sprekende regio. Overschakelen naar ${n}?`,
+                pt: (n) => `Parece que está a navegar de uma região de língua ${n}. Mudar para ${n}?`
+            },
+            
+            meta_title: { fr: 'HorecaManage | Le Pilote Automatique de votre e-réputation', en: 'HorecaManage | The Autopilot for your e-reputation', de: 'HorecaManage | Der Autopilot für Ihre Online-Reputation', es: 'HorecaManage | El Piloto Automático de tu e-reputación', it: 'HorecaManage | Il Pilota Automatico della tua e-reputazione', nl: 'HorecaManage | De Automatische Piloot voor uw e-reputatie', pt: 'HorecaManage | O Piloto Automático da sua e-reputação' },
+            meta_description: { fr: "L'IA qui répond à vos avis clients 24h/24 et 7j/7. Gagnez du temps, attirez plus de clients.", en: 'The AI that responds to your customer reviews 24/7. Save time, attract more customers.', de: 'Die KI, die rund um die Uhr auf Ihre Kundenbewertungen antwortet.', es: 'La IA que responde a tus reseñas de clientes 24/7.', it: "L'IA che risponde alle tue recensioni clienti 24/7.", nl: 'De AI die 24/7 reageert op uw klantbeoordelingen.', pt: 'A IA que responde às suas avaliações de clientes 24/7.' },
+            
+            nav_solution: { fr: 'Solution', en: 'Solution', de: 'Lösung', es: 'Solución', it: 'Soluzione', nl: 'Oplossing', pt: 'Solução' },
+            nav_demo: { fr: 'Démo', en: 'Demo', de: 'Demo', es: 'Demo', it: 'Demo', nl: 'Demo', pt: 'Demonstração' },
+            nav_pricing: { fr: 'Tarifs', en: 'Pricing', de: 'Preise', es: 'Precios', it: 'Prezzi', nl: 'Prijzen', pt: 'Preços' },
+            nav_faq: { fr: 'FAQ', en: 'FAQ', de: 'FAQ', es: 'FAQ', it: 'FAQ', nl: 'FAQ', pt: 'FAQ' },
+            lang_selector_title: { fr: 'Langues disponibles', en: 'Available languages', de: 'Verfügbare Sprachen', es: 'Idiomas disponibles', it: 'Lingue disponibili', nl: 'Beschikbare talen', pt: 'Idiomas disponíveis' },
+            cta_trial: { fr: 'Essai gratuit', en: 'Free trial', de: 'Kostenlos testen', es: 'Prueba gratuita', it: 'Prova gratuita', nl: 'Gratis proberen', pt: 'Teste gratuito' },
+            cta_trial_mobile: { fr: 'Essai gratuit (14 jours)', en: 'Free trial (14 days)', de: 'Kostenlos testen (14 Tage)', es: 'Prueba gratuita (14 días)', it: 'Prova gratuita (14 giorni)', nl: 'Gratis proberen (14 dagen)', pt: 'Teste gratuito (14 dias)' },
+            
+            hero_badge: { fr: 'Le Pilote Automatique de votre e-réputation', en: 'The Autopilot for your e-reputation', de: 'Der Autopilot für Ihre Online-Reputation', es: 'El Piloto Automático de tu e-reputación', it: 'Il Pilota Automatico della tua e-reputazione', nl: 'De Automatische Piloot voor uw e-reputatie', pt: 'O Piloto Automático da sua e-reputação' },
+            hero_title_1: { fr: 'Votre e-réputation gérée', en: 'Your e-reputation managed', de: 'Ihre Online-Reputation verwaltet', es: 'Tu e-reputación gestionada', it: 'La tua e-reputazione gestita', nl: 'Uw e-reputatie beheerd', pt: 'A sua e-reputação gerida' },
+            hero_title_2: { fr: '24h/24 et 7j/7. ⚡', en: '24/7. ⚡', de: 'Rund um die Uhr. ⚡', es: '24/7. ⚡', it: '24/7. ⚡', nl: '24/7. ⚡', pt: '24/7. ⚡' },
+            hero_subtitle: { fr: "L'IA qui répond à vos avis clients jour et nuit. Gagnez du temps, attirez plus de clients.", en: 'The AI that responds to your customer reviews day and night. Save time, attract more customers.', de: 'Die KI, die Tag und Nacht auf Ihre Kundenbewertungen antwortet.', es: 'La IA que responde a tus reseñas día y noche.', it: "L'IA che risponde alle tue recensioni giorno e notte.", nl: 'De AI die dag en nacht reageert op uw klantbeoordelingen.', pt: 'A IA que responde às suas avaliações dia e noite.' },
+            hero_stat_1: { fr: "+32% d'avis répondus en moyenne", en: '+32% more reviews answered on average', de: '+32% mehr beantwortete Bewertungen', es: '+32% más reseñas respondidas', it: '+32% di recensioni con risposta', nl: '+32% meer beantwoorde beoordelingen', pt: '+32% mais avaliações respondidas' },
+            hero_stat_2: { fr: '4.8/5 satisfaction client', en: '4.8/5 customer satisfaction', de: '4.8/5 Kundenzufriedenheit', es: '4.8/5 satisfacción', it: '4.8/5 soddisfazione', nl: '4.8/5 klanttevredenheid', pt: '4.8/5 satisfação' },
+            hero_cta_main: { fr: 'Démarrer mon essai gratuit (14 jours)', en: 'Start my free trial (14 days)', de: 'Kostenlose Testversion starten', es: 'Comenzar mi prueba gratuita', it: 'Inizia la mia prova gratuita', nl: 'Start mijn gratis proefperiode', pt: 'Começar o meu teste gratuito' },
+            hero_cta_demo: { fr: 'Voir la démo', en: 'See demo', de: 'Demo ansehen', es: 'Ver demo', it: 'Vedi demo', nl: 'Bekijk demo', pt: 'Ver demonstração' },
+            hero_reassurance: { fr: '✅ Sans engagement • 💳 Sans carte bancaire • 🚀 Configuration en 2 minutes', en: '✅ No commitment • 💳 No credit card • 🚀 2-min setup', de: '✅ Keine Verpflichtung • 💳 Keine Kreditkarte', es: '✅ Sin compromiso • 💳 Sin tarjeta', it: '✅ Senza impegno • 💳 Senza carta', nl: '✅ Geen verplichting • 💳 Geen creditcard', pt: '✅ Sem compromisso • 💳 Sem cartão' },
+            
+            problem_title: { fr: 'Le Constat Épuisant', en: 'The Exhausting Reality', de: 'Die Ermüdende Realität', es: 'La Realidad Agotadora', it: 'La Realtà Estenuante', nl: 'De Vermoeiende Realiteit', pt: 'A Realidade Esgotante' },
+            problem_text_1: { fr: "80% des restaurateurs sacrifient leur visibilité en ligne par manque de temps.", en: "80% of restaurateurs sacrifice their online visibility due to lack of time.", de: '80% der Gastronomen opfern ihre Online-Sichtbarkeit aus Zeitmangel.', es: 'El 80% de los restauradores sacrifican su visibilidad online.', it: "L'80% dei ristoratori sacrifica la propria visibilità online.", nl: '80% van de restauranthouders offert hun online zichtbaarheid op.', pt: '80% dos restauradores sacrificam a sua visibilidade online.' },
+            problem_text_2: { fr: 'Résultat : une note qui stagne et des clients qui passent leur chemin.', en: 'Result: a stagnant rating and customers passing you by.', de: 'Ergebnis: eine stagnierende Bewertung.', es: 'Resultado: una calificación estancada.', it: 'Risultato: una valutazione stagnante.', nl: 'Resultaat: een stagnerende beoordeling.', pt: 'Resultado: uma classificação estagnada.' },
+            solution_title: { fr: 'La Solution HorecaManage', en: 'The HorecaManage Solution', de: 'Die HorecaManage Lösung', es: 'La Solución HorecaManage', it: 'La Soluzione HorecaManage', nl: 'De HorecaManage Oplossing', pt: 'A Solução HorecaManage' },
+            solution_text_1: { fr: 'Notre IA veille en permanence, détecte chaque avis, analyse le sentiment et rédige une réponse professionnelle.', en: 'Our AI keeps constant watch, detects every review, analyzes sentiment, and drafts a professional response.', de: 'Unsere KI wacht ständig und verfasst professionelle Antworten.', es: 'Nuestra IA vigila constantemente y redacta respuestas profesionales.', it: 'La nostra IA veglia costantemente e redige risposte professionali.', nl: 'Onze AI houdt constant de wacht en stelt professionele antwoorden op.', pt: 'A nossa IA vigia constantemente e redige respostas profissionais.' },
+            solution_text_2: { fr: 'Votre bureau numérique est toujours impeccable.', en: 'Your digital desk is always impeccable.', de: 'Ihr digitaler Schreibtisch ist immer makellos.', es: 'Tu escritorio digital siempre impecable.', it: 'La tua scrivania digitale sempre impeccabile.', nl: 'Uw digitale bureau altijd onberispelijk.', pt: 'A sua secretária digital sempre impecável.' },
+            
+            timeline_step1: { fr: 'Avis reçu', en: 'Review received', de: 'Bewertung erhalten', es: 'Reseña recibida', it: 'Recensione ricevuta', nl: 'Beoordeling ontvangen', pt: 'Avaliação recebida' },
+            timeline_step2: { fr: 'IA analyse', en: 'AI analyzes', de: 'KI analysiert', es: 'IA analiza', it: 'IA analizza', nl: 'AI analyseert', pt: 'IA analisa' },
+            timeline_step3: { fr: 'Réponse publiée', en: 'Response published', de: 'Antwort veröffentlicht', es: 'Respuesta publicada', it: 'Risposta pubblicata', nl: 'Antwoord gepubliceerd', pt: 'Resposta publicada' },
+            
+            demo_badge: { fr: '🎬 Démonstration en direct', en: '🎬 Live Demo', de: '🎬 Live-Demo', es: '🎬 Demo en directo', it: '🎬 Demo dal vivo', nl: '🎬 Live demo', pt: '🎬 Demonstração ao vivo' },
+            demo_title: { fr: 'La magie opère 24h/24.', en: 'The magic happens 24/7.', de: 'Die Magie geschieht rund um die Uhr.', es: 'La magia ocurre 24/7.', it: 'La magia avviene 24/7.', nl: 'De magie gebeurt 24/7.', pt: 'A magia acontece 24/7.' },
+            demo_subtitle: { fr: "Voyez comment l'IA réagit instantanément.", en: 'See how the AI responds instantly.', de: 'Sehen Sie, wie die KI sofort reagiert.', es: 'Ve cómo la IA responde al instante.', it: "Guarda come l'IA risponde istantaneamente.", nl: 'Zie hoe de AI direct reageert.', pt: 'Veja como a IA responde instantaneamente.' },
+            demo_scenario_negative: { fr: '😤 Avis négatif', en: '😤 Negative review', de: '😤 Negative Bewertung', es: '😤 Reseña negativa', it: '😤 Recensione negativa', nl: '😤 Negatieve beoordeling', pt: '😤 Avaliação negativa' },
+            demo_scenario_mixed: { fr: '😐 Avis mitigé', en: '😐 Mixed review', de: '😐 Gemischte Bewertung', es: '😐 Reseña mixta', it: '😐 Recensione mista', nl: '😐 Gemengde beoordeling', pt: '😐 Avaliação mista' },
+            demo_scenario_positive: { fr: '🤩 Avis positif', en: '🤩 Positive review', de: '🤩 Positive Bewertung', es: '🤩 Reseña positiva', it: '🤩 Recensione positiva', nl: '🤩 Positieve beoordeling', pt: '🤩 Avaliação positiva' },
+            demo_status: { fr: 'Système actif : 13:30', en: 'System active: 13:30', de: 'System aktiv: 13:30', es: 'Sistema activo: 13:30', it: 'Sistema attivo: 13:30', nl: 'Systeem actief: 13:30', pt: 'Sistema ativo: 13:30' },
+            demo_time_ago: { fr: 'il y a 2 minutes', en: '2 minutes ago', de: 'vor 2 Minuten', es: 'hace 2 minutos', it: '2 minuti fa', nl: '2 minuten geleden', pt: 'há 2 minutos' },
+            demo_response_name: { fr: 'La Direction', en: 'Management', de: 'Geschäftsleitung', es: 'La Dirección', it: 'La Direzione', nl: 'Het Management', pt: 'A Gerência' },
+            demo_response_badge: { fr: '🤖 Généré par IA', en: '🤖 AI Generated', de: '🤖 KI-generiert', es: '🤖 Generado por IA', it: '🤖 Generato da IA', nl: '🤖 AI-gegenereerd', pt: '🤖 Gerado por IA' },
+            demo_speed: { fr: 'Répondu en 47 secondes', en: 'Answered in 47 seconds', de: 'In 47 Sekunden geantwortet', es: 'Respondido en 47 segundos', it: 'Risposto in 47 secondi', nl: 'Beantwoord in 47 seconden', pt: 'Respondido em 47 segundos' },
+            demo_tone: { fr: 'Ton : Chaleureux', en: 'Tone: Warm', de: 'Ton: Herzlich', es: 'Tono: Cálido', it: 'Tono: Caloroso', nl: 'Toon: Warm', pt: 'Tom: Caloroso' },
+            demo_seo: { fr: 'SEO optimisé', en: 'SEO optimized', de: 'SEO-optimiert', es: 'SEO optimizado', it: 'SEO ottimizzato', nl: 'SEO-geoptimaliseerd', pt: 'SEO otimizado' },
+            
+            testimonial_quote: { fr: '"Je passais 45 minutes par jour à répondre aux avis. Maintenant : 0 minute. Et ma note Google a gagné 0,3 étoile en 2 mois."', en: '"I used to spend 45 minutes a day responding to reviews. Now: 0 minutes. And my Google rating gained 0.3 stars in 2 months."', de: '"Ich verbrachte 45 Minuten pro Tag mit Bewertungen. Jetzt: 0 Minuten. Und meine Google-Bewertung stieg um 0,3 Sterne in 2 Monaten."', es: '"Pasaba 45 minutos al día respondiendo reseñas. Ahora: 0 minutos. Y mi nota de Google subió 0,3 estrellas en 2 meses."', it: '"Passavo 45 minuti al giorno a rispondere alle recensioni. Ora: 0 minuti. E la mia valutazione Google è salita di 0,3 stelle in 2 mesi."', nl: '"Ik besteedde 45 minuten per dag aan beoordelingen. Nu: 0 minuten. En mijn Google-score steeg 0,3 sterren in 2 maanden."', pt: '"Passava 45 minutos por dia a responder a avaliações. Agora: 0 minutos. E a minha nota do Google subiu 0,3 estrelas em 2 meses."' },
+            testimonial_place: { fr: 'Le Comptoir • Restaurant bistronomique', en: 'Le Comptoir • Bistro restaurant', de: 'Le Comptoir • Bistro-Restaurant', es: 'Le Comptoir • Restaurante bistronómico', it: 'Le Comptoir • Ristorante bistronomico', nl: 'Le Comptoir • Bistro restaurant', pt: 'Le Comptoir • Restaurante bistronómico' },
+            testimonial_stat1: { fr: 'Temps passé par jour', en: 'Time spent per day', de: 'Zeitaufwand pro Tag', es: 'Tiempo dedicado al día', it: 'Tempo speso al giorno', nl: 'Tijd besteed per dag', pt: 'Tempo gasto por dia' },
+            testimonial_stat2: { fr: 'Note Google gagnée', en: 'Google rating gained', de: 'Google-Bewertung gewonnen', es: 'Nota Google ganada', it: 'Valutazione Google guadagnata', nl: 'Google-score gewonnen', pt: 'Nota Google ganha' },
+            testimonial_stat3: { fr: 'Avis répondus', en: 'Reviews answered', de: 'Bewertungen beantwortet', es: 'Reseñas respondidas', it: 'Recensioni risposte', nl: 'Beoordelingen beantwoord', pt: 'Avaliações respondidas' },
+            testimonial_stat4: { fr: 'Pour voir les résultats', en: 'To see results', de: 'Für Ergebnisse', es: 'Para ver resultados', it: 'Per vedere risultati', nl: 'Om resultaten te zien', pt: 'Para ver resultados' },
+            
+            counter_subtitle: { fr: 'Cette semaine, HorecaManage vous a fait gagner :', en: 'This week, HorecaManage saved you:', de: 'Diese Woche hat HorecaManage Ihnen gespart:', es: 'Esta semana, HorecaManage te ha ahorrado:', it: 'Questa settimana, HorecaManage ti ha fatto risparmiare:', nl: 'Deze week heeft HorecaManage u bespaard:', pt: 'Esta semana, a HorecaManage poupou-lhe:' },
+            counter_hours: { fr: 'Heures', en: 'Hours', de: 'Stunden', es: 'Horas', it: 'Ore', nl: 'Uren', pt: 'Horas' },
+            counter_minutes: { fr: 'Minutes', en: 'Minutes', de: 'Minuten', es: 'Minutos', it: 'Minuti', nl: 'Minuten', pt: 'Minutos' },
+            counter_note: { fr: 'Basé sur 15 avis par semaine à 3 minutes par réponse', en: 'Based on 15 reviews/week at 3 min/response', de: 'Basiert auf 15 Bewertungen/Woche à 3 Min/Antwort', es: 'Basado en 15 reseñas/semana a 3 min/respuesta', it: 'Basato su 15 recensioni/settimana a 3 min/risposta', nl: 'Gebaseerd op 15 beoordelingen/week à 3 min/antwoord', pt: 'Com base em 15 avaliações/semana a 3 min/resposta' },
+            
+            cta_secondary: { fr: '🚀 Démarrer mon essai gratuit (14 jours)', en: '🚀 Start my free trial (14 days)', de: '🚀 Kostenlose Testversion starten', es: '🚀 Comenzar mi prueba gratuita', it: '🚀 Inizia la mia prova gratuita', nl: '🚀 Start mijn gratis proefperiode', pt: '🚀 Começar o meu teste gratuito' },
+            cta_reassurance: { fr: 'Sans engagement • Sans carte bancaire', en: 'No commitment • No credit card', de: 'Keine Verpflichtung • Keine Kreditkarte', es: 'Sin compromiso • Sin tarjeta', it: 'Senza impegno • Senza carta', nl: 'Geen verplichting • Geen creditcard', pt: 'Sem compromisso • Sem cartão' },
+            
+            trust_title: { fr: 'Ils nous font confiance', en: 'They trust us', de: 'Sie vertrauen uns', es: 'Ellos confían en nosotros', it: 'Si fidano di noi', nl: 'Zij vertrouwen ons', pt: 'Eles confiam em nós' },
+            
+            pricing_badge: { fr: '🎉 Offre de lancement • Prix garanti à vie', en: '🎉 Launch offer • Lifetime price', de: '🎉 Einführungsangebot', es: '🎉 Oferta de lanzamiento', it: '🎉 Offerta lancio', nl: '🎉 Lanceringsaanbod', pt: '🎉 Oferta lançamento' },
+            pricing_title: { fr: 'Un investissement rentable.', en: 'A profitable investment.', de: 'Eine rentable Investition.', es: 'Una inversión rentable.', it: 'Un investimento redditizio.', nl: 'Een rendabele investering.', pt: 'Um investimento rentável.' },
+            pricing_subtitle: { fr: 'Choisissez le pilote automatique adapté à votre établissement.', en: 'Choose the autopilot for your establishment.', de: 'Wählen Sie den Autopiloten für Ihren Betrieb.', es: 'Elige el piloto automático para tu establecimiento.', it: 'Scegli il pilota automatico per il tuo locale.', nl: 'Kies de automatische piloot voor uw zaak.', pt: 'Escolha o piloto automático para o seu estabelecimento.' },
+            pricing_basic_name: { fr: 'Essentielle', en: 'Essential', de: 'Basis', es: 'Esencial', it: 'Essenziale', nl: 'Essentieel', pt: 'Essencial' },
+            pricing_basic_desc: { fr: "Pour les restaurateurs concentrés sur l'essentiel.", en: 'For restaurateurs focused on essentials.', de: 'Für Gastronomen mit Fokus aufs Wesentliche.', es: 'Para restauradores centrados en lo esencial.', it: "Per ristoratori concentrati sull'essenziale.", nl: 'Voor restauranthouders gericht op de essentie.', pt: 'Para restauradores focados no essencial.' },
+            pricing_per_month: { fr: '/ mois', en: '/ month', de: '/ Monat', es: '/ mes', it: '/ mese', nl: '/ maand', pt: '/ mês' },
+            pricing_basic_daily: { fr: "Soit moins d'1€ par jour", en: 'Less than €1/day', de: 'Weniger als 1€/Tag', es: 'Menos de 1€/día', it: 'Meno di 1€/giorno', nl: 'Minder dan €1/dag', pt: 'Menos de 1€/dia' },
+            pricing_basic_feature_1: { fr: 'Connexion Google Maps', en: 'Google Maps connection', de: 'Google Maps Anbindung', es: 'Conexión Google Maps', it: 'Connessione Google Maps', nl: 'Google Maps koppeling', pt: 'Conexão Google Maps' },
+            pricing_basic_feature_2: { fr: 'Publication automatique après validation', en: 'Automatic publication after validation', de: 'Automatische Veröffentlichung nach Validierung', es: 'Publicación automática tras validación', it: 'Pubblicazione automatica dopo convalida', nl: 'Automatische publicatie na validatie', pt: 'Publicação automática após validação' },
+            pricing_basic_feature_3: { fr: 'Rapport d'activité quotidien', en: 'Daily activity report', de: 'Täglicher Aktivitätsbericht', es: 'Informe diario', it: 'Report attività quotidiano', nl: 'Dagelijks activiteitenrapport', pt: 'Relatório de atividade diário' },
+            pricing_cta: { fr: "Démarrer l'essai", en: 'Start trial', de: 'Test starten', es: 'Comenzar prueba', it: 'Inizia prova', nl: 'Start proef', pt: 'Começar teste' },
+            pricing_popular: { fr: '⭐ La plus populaire', en: '⭐ Most popular', de: '⭐ Am beliebtesten', es: '⭐ La más popular', it: '⭐ La più popolare', nl: '⭐ Meest populair', pt: '⭐ A mais popular' },
+            pricing_pro_name: { fr: 'Intégrale', en: 'Complete', de: 'Komplett', es: 'Integral', it: 'Integrale', nl: 'Compleet', pt: 'Integral' },
+            pricing_pro_desc: { fr: 'La domination totale de votre e-réputation.', en: 'Total domination of your e-reputation.', de: 'Totale Dominanz Ihrer Online-Reputation.', es: 'Dominación total de tu e-reputación.', it: 'Dominio totale della tua e-reputazione.', nl: 'Totale dominantie van uw e-reputatie.', pt: 'Dominação total da sua e-reputação.' },
+            pricing_pro_daily: { fr: "Soit moins d'1,30€ par jour", en: 'Less than €1.30/day', de: 'Weniger als 1,30€/Tag', es: 'Menos de 1,30€/día', it: 'Meno di 1,30€/giorno', nl: 'Minder dan €1,30/dag', pt: 'Menos de 1,30€/dia' },
+            pricing_pro_feature_1: { fr: 'Google Maps, TheFork, TripAdvisor, Zenchef', en: 'Google Maps, TheFork, TripAdvisor, Zenchef', de: 'Google Maps, TheFork, TripAdvisor, Zenchef', es: 'Google Maps, TheFork, TripAdvisor, Zenchef', it: 'Google Maps, TheFork, TripAdvisor, Zenchef', nl: 'Google Maps, TheFork, TripAdvisor, Zenchef', pt: 'Google Maps, TheFork, TripAdvisor, Zenchef' },
+            pricing_pro_feature_2: { fr: 'Réponses IA multi-langues avec validation humaine', en: 'Multi-language AI with human validation', de: 'Mehrsprachige KI mit Validierung', es: 'IA multilingüe con validación humana', it: 'IA multilingue con convalida umana', nl: 'Meertalige AI met validatie', pt: 'IA multilíngue com validação humana' },
+            pricing_pro_feature_3: { fr: 'Contrôle du ton (Chaleureux, formel, fun)', en: 'Tone control (Warm, formal, fun)', de: 'Tonkontrolle (Herzlich, formell, lustig)', es: 'Control de tono (Cálido, formal, divertido)', it: 'Controllo del tono (Caloroso, formale, divertente)', nl: 'Tooncontrole (Warm, formeel, leuk)', pt: 'Controle de tom (Caloroso, formal, divertido)' },
+            pricing_pro_feature_4: { fr: 'Publication automatique après validation', en: 'Automatic publication after validation', de: 'Automatische Veröffentlichung nach Validierung', es: 'Publicación automática tras validación', it: 'Pubblicazione automatica dopo convalida', nl: 'Automatische publicatie na validatie', pt: 'Publicação automática após validação' },
+            pricing_guarantee: { fr: '✅ Essai gratuit 14 jours • Sans engagement • Annulation 1 clic', en: '✅ 14-day free trial • No commitment • Cancel 1 click', de: '✅ 14 Tage kostenlos • Keine Verpflichtung', es: '✅ 14 días gratis • Sin compromiso', it: '✅ 14 giorni gratis • Senza impegno', nl: '✅ 14 dagen gratis • Geen verplichting', pt: '✅ 14 dias grátis • Sem compromisso' },
+            
+            faq_badge: { fr: '💬 Questions fréquentes', en: '💬 FAQ', de: '💬 Häufige Fragen', es: '💬 FAQ', it: '💬 FAQ', nl: '💬 FAQ', pt: '💬 FAQ' },
+            faq_title: { fr: 'On répond à vos questions.', en: 'We answer your questions.', de: 'Wir beantworten Ihre Fragen.', es: 'Respondemos a tus preguntas.', it: 'Rispondiamo alle tue domande.', nl: 'Wij beantwoorden uw vragen.', pt: 'Respondemos às suas perguntas.' },
+            faq_subtitle: { fr: 'Transparence et sécurité avant tout.', en: 'Transparency and security above all.', de: 'Transparenz und Sicherheit.', es: 'Transparencia y seguridad.', it: 'Trasparenza e sicurezza.', nl: 'Transparantie en veiligheid.', pt: 'Transparência e segurança.' },
+            faq_q1: { fr: 'La connexion est-elle sécurisée ?', en: 'Is the connection secure?', de: 'Ist die Verbindung sicher?', es: '¿Es segura la conexión?', it: 'La connessione è sicura?', nl: 'Is de verbinding veilig?', pt: 'A ligação é segura?' },
+            faq_a1: { fr: 'Absolument. API officielles OAuth 2.0. Aucun stockage de mot de passe.', en: 'Absolutely. Official OAuth 2.0 APIs. No password storage.', de: 'Absolut. Offizielle OAuth 2.0 APIs.', es: 'Absolutamente. APIs oficiales OAuth 2.0.', it: 'Assolutamente. API ufficiali OAuth 2.0.', nl: 'Absoluut. Officiële OAuth 2.0 API\'s.', pt: 'Absolutamente. APIs oficiais OAuth 2.0.' },
+            faq_q2: { fr: "L'IA peut-elle être inappropriée ?", en: 'Can the AI be inappropriate?', de: 'Kann die KI unangemessen sein?', es: '¿Puede la IA ser inapropiada?', it: "L'IA può essere inappropriata?", nl: 'Kan de AI ongepast zijn?', pt: 'A IA pode ser inadequada?' },
+            faq_a2: { fr: 'Non. IA entraînée pour la restauration. Ton courtois et diplomatique.', en: 'No. AI trained for restaurants. Courteous and diplomatic.', de: 'Nein. KI für Gastronomie trainiert.', es: 'No. IA entrenada para restauración.', it: 'No. IA addestrata per la ristorazione.', nl: 'Nee. AI getraind voor horeca.', pt: 'Não. IA treinada para restauração.' },
+            faq_q3: { fr: 'Puis-je modifier les réponses ?', en: 'Can I edit responses?', de: 'Kann ich Antworten bearbeiten?', es: '¿Puedo editar respuestas?', it: 'Posso modificare le risposte?', nl: 'Kan ik antwoorden bewerken?', pt: 'Posso editar as respostas?' },
+            faq_a3: { fr: 'Oui. Tableau de bord complet pour lire, éditer ou supprimer.', en: 'Yes. Full dashboard to read, edit or delete.', de: 'Ja. Vollständiges Dashboard.', es: 'Sí. Panel completo.', it: 'Sì. Dashboard completa.', nl: 'Ja. Volledig dashboard.', pt: 'Sim. Painel completo.' },
+            faq_q4: { fr: "Comment fonctionne l'essai de 14 jours ?", en: 'How does the 14-day trial work?', de: 'Wie funktioniert die 14-Tage-Testversion?', es: '¿Cómo funciona la prueba de 14 días?', it: 'Come funziona la prova di 14 giorni?', nl: 'Hoe werkt de proefperiode?', pt: 'Como funciona o teste de 14 dias?' },
+            faq_a4: { fr: 'Accès complet 14 jours, sans carte bancaire. Annulation simple.', en: 'Full access 14 days, no credit card. Easy cancellation.', de: 'Voller Zugang 14 Tage, keine Kreditkarte.', es: 'Acceso completo 14 días, sin tarjeta.', it: 'Accesso completo 14 giorni, senza carta.', nl: 'Volledige toegang 14 dagen, geen creditcard.', pt: 'Acesso total 14 dias, sem cartão.' },
+            
+            email_badge: { fr: '📧 Restons en contact', en: '📧 Stay in touch', de: '📧 In Kontakt bleiben', es: '📧 Mantente en contacto', it: '📧 Restiamo in contatto', nl: '📧 Blijf op de hoogte', pt: '📧 Mantenha contacto' },
+            email_title: { fr: 'Pas encore prêt ?', en: 'Not ready yet?', de: 'Noch nicht bereit?', es: '¿Aún no listo?', it: 'Non ancora pronto?', nl: 'Nog niet klaar?', pt: 'Ainda não pronto?' },
+            email_subtitle: { fr: 'Recevez nos conseils e-réputation par email.', en: 'Get e-reputation tips by email.', de: 'E-Reputation Tipps per E-Mail.', es: 'Recibe consejos de e-reputación.', it: 'Ricevi consigli e-reputation.', nl: 'Ontvang e-reputatie tips.', pt: 'Receba dicas de e-reputação.' },
+            email_placeholder: { fr: 'votre@email.com', en: 'your@email.com', de: 'ihre@email.de', es: 'tu@email.com', it: 'tua@email.it', nl: 'uw@email.nl', pt: 'seu@email.pt' },
+            email_button: { fr: 'Recevoir la démo', en: 'Get the demo', de: 'Demo erhalten', es: 'Recibir demo', it: 'Ricevi demo', nl: 'Ontvang demo', pt: 'Receber demo' },
+            email_nospam: { fr: 'Pas de spam. Désabonnement 1 clic.', en: 'No spam. Unsubscribe 1 click.', de: 'Kein Spam.', es: 'Sin spam.', it: 'Niente spam.', nl: 'Geen spam.', pt: 'Sem spam.' },
+            
+            footer_tagline: { fr: 'Le pilote automatique de votre e-réputation.', en: 'The autopilot for your e-reputation.', de: 'Der Autopilot für Ihre Online-Reputation.', es: 'El piloto automático de tu e-reputación.', it: 'Il pilota automatico della tua e-reputazione.', nl: 'De automatische piloot voor uw e-reputatie.', pt: 'O piloto automático da sua e-reputação.' },
+            footer_nav: { fr: 'Navigation', en: 'Navigation', de: 'Navigation', es: 'Navegación', it: 'Navigazione', nl: 'Navigatie', pt: 'Navegação' },
+            footer_legal: { fr: 'Légal', en: 'Legal', de: 'Rechtliches', es: 'Legal', it: 'Legale', nl: 'Juridisch', pt: 'Legal' },
+            footer_contact: { fr: 'Contact', en: 'Contact', de: 'Kontakt', es: 'Contacto', it: 'Contatto', nl: 'Contact', pt: 'Contacto' },
+            footer_legal_mentions: { fr: 'Mentions Légales', en: 'Legal Notice', de: 'Impressum', es: 'Aviso Legal', it: 'Note Legali', nl: 'Juridische kennisgeving', pt: 'Aviso Legal' },
+            footer_legal_terms: { fr: 'CGV / CGU', en: 'Terms', de: 'AGB', es: 'Términos', it: 'Termini', nl: 'Voorwaarden', pt: 'Termos' },
+            footer_legal_privacy: { fr: 'Confidentialité', en: 'Privacy', de: 'Datenschutz', es: 'Privacidad', it: 'Privacy', nl: 'Privacy', pt: 'Privacidade' },
+            footer_rights: { fr: 'Tous droits réservés.', en: 'All rights reserved.', de: 'Alle Rechte vorbehalten.', es: 'Todos los derechos reservados.', it: 'Tutti i diritti riservati.', nl: 'Alle rechten voorbehouden.', pt: 'Todos os direitos reservados.' },
+            footer_made: { fr: 'Fait avec ❤️ pour les restaurateurs', en: 'Made with ❤️ for restaurateurs', de: 'Mit ❤️ für Gastronomen', es: 'Hecho con ❤️ para restauradores', it: 'Fatto con ❤️ per ristoratori', nl: 'Gemaakt met ❤️ voor restauranthouders', pt: 'Feito com ❤️ para restauradores' }
+        };
+
+        const simScenarios = {
+            negative: {
+                author: 'Sophie L.', avatar: 'S',
+                stars: '★★<span class="text-zinc-600">★★★</span>',
+                review: {
+                    fr: '"Très déçue. 45 minutes d\'attente pour une table réservée, serveur désagréable. Les plats sont bons mais l\'expérience gâche tout. Je ne reviendrai pas."',
+                    en: '"Very disappointed. 45 minute wait for a reserved table, unpleasant waiter. Food is good but experience ruins everything."',
+                    de: '"Sehr enttäuscht. 45 Minuten Wartezeit, unfreundlicher Kellner."',
+                    es: '"Muy decepcionada. 45 minutos de espera, camarero desagradable."',
+                    it: '"Molto delusa. 45 minuti di attesa, cameriere sgradevole."',
+                    nl: '"Zeer teleurgesteld. 45 minuten wachten, onvriendelijke ober."',
+                    pt: '"Muito desapontada. 45 minutos de espera, empregado desagradável."'
+                },
+                response: {
+                    fr: '"Bonjour Sophie, nous vous présentons nos plus sincères excuses. Notre responsable va enquêter sur ce qui s\'est passé. Nous aimerions vous offrir un dîner pour deux. Contactez-nous à manager@restaurant.com."',
+                    en: '"Hello Sophie, we sincerely apologize. Our manager will investigate. We\'d like to offer you a dinner for two. Contact us at manager@restaurant.com."',
+                    de: '"Hallo Sophie, wir entschuldigen uns aufrichtig. Unser Manager wird sofort untersuchen."',
+                    es: '"Hola Sophie, le pedimos disculpas sinceramente. Nuestro gerente investigará."',
+                    it: '"Buongiorno Sophie, ci scusiamo sinceramente. Il nostro manager indagherà."',
+                    nl: '"Hallo Sophie, onze oprechte excuses. Onze manager zal het onderzoeken."',
+                    pt: '"Olá Sophie, pedimos as nossas sinceras desculpas. O nosso gerente vai investigar."'
+                },
+                tone: { fr: 'Ton : Diplomatique', en: 'Tone: Diplomatic', de: 'Ton: Diplomatisch', es: 'Tono: Diplomático', it: 'Tono: Diplomatico', nl: 'Toon: Diplomatiek', pt: 'Tom: Diplomático' }
+            },
+            mixed: {
+                author: 'Marc D.', avatar: 'M',
+                stars: '★★★★<span class="text-zinc-600">★</span>',
+                review: {
+                    fr: '"Un peu d\'attente pendant le service, c\'était un peu long. Mais franchement, les crêpes sont excellentes ! Pâte fine et croustillante. Je recommande."',
+                    en: '"A bit of a wait during service, it was a little long. But honestly, the crepes are excellent! Thin and crispy batter. I recommend."',
+                    de: '"Etwas Wartezeit während des Service. Aber die Crêpes sind ausgezeichnet!"',
+                    es: '"Un poco de espera durante el servicio. ¡Pero los crepes son excelentes!"',
+                    it: '"Un po\' di attesa durante il servizio. Ma le crêpe sono eccellenti!"',
+                    nl: '"Een beetje wachten tijdens de service. Maar de crêpes zijn uitstekend!"',
+                    pt: '"Um pouco de espera durante o serviço. Mas os crepes são excelentes!"'
+                },
+                response: {
+                    fr: '"Bonjour Marc, merci pour votre retour ! Nous sommes ravis que nos crêpes vous aient conquis. Nous prenons bonne note de votre remarque sur l\'attente. Au plaisir de vous régaler à nouveau !"',
+                    en: '"Hello Marc, thank you for your feedback! We\'re delighted our crepes won you over. We take note of your remark about the wait. Looking forward to delighting you again!"',
+                    de: '"Hallo Marc, vielen Dank! Wir freuen uns, dass unsere Crêpes Sie überzeugt haben."',
+                    es: '"¡Hola Marc, gracias! Nos encanta que nuestros crepes te hayan conquistado."',
+                    it: '"Ciao Marc, grazie! Siamo felici che le nostre crêpe ti abbiano conquistato."',
+                    nl: '"Hallo Marc, bedankt! We zijn blij dat onze crêpes je hebben overtuigd."',
+                    pt: '"Olá Marc, obrigado! Ficamos encantados que os nossos crepes o tenham conquistado."'
+                },
+                tone: { fr: 'Ton : Chaleureux', en: 'Tone: Warm', de: 'Ton: Herzlich', es: 'Tono: Cálido', it: 'Tono: Caloroso', nl: 'Toon: Warm', pt: 'Tom: Caloroso' }
+            },
+            positive: {
+                author: 'Thomas R.', avatar: 'T',
+                stars: '★★★★★',
+                review: {
+                    fr: '"Excellent ! Meilleur brunch du quartier. Les œufs Bénédicte sont parfaits, le jus d\'orange pressé, et le personnel aux petits soins. On revient tous les dimanches !"',
+                    en: '"Excellent! Best brunch in the neighborhood. Perfect Eggs Benedict, fresh orange juice, attentive staff. We come back every Sunday!"',
+                    de: '"Ausgezeichnet! Bester Brunch im Viertel. Wir kommen jeden Sonntag wieder!"',
+                    es: '"¡Excelente! El mejor brunch del barrio. ¡Volvemos todos los domingos!"',
+                    it: '"Eccellente! Miglior brunch del quartiere. Torniamo ogni domenica!"',
+                    nl: '"Uitstekend! Beste brunch in de buurt. We komen elke zondag terug!"',
+                    pt: '"Excelente! Melhor brunch do bairro. Voltamos todos os domingos!"'
+                },
+                response: {
+                    fr: '"Bonjour Thomas, quel plaisir de lire votre commentaire ! Merci infiniment pour cette belle fidélité. Nous transmettons vos compliments à toute l\'équipe. À dimanche prochain !"',
+                    en: '"Hello Thomas, what a pleasure! Thank you for your wonderful loyalty. We\'ll share your compliments with the team. See you next Sunday!"',
+                    de: '"Hallo Thomas, welche Freude! Vielen Dank für Ihre Treue. Bis nächsten Sonntag!"',
+                    es: '"¡Hola Thomas, qué placer! Gracias por tu fidelidad. ¡Hasta el próximo domingo!"',
+                    it: '"Ciao Thomas, che piacere! Grazie per la tua fedeltà. Alla prossima domenica!"',
+                    nl: '"Hallo Thomas, wat een plezier! Bedankt voor uw trouw. Tot volgende zondag!"',
+                    pt: '"Olá Thomas, que prazer! Obrigado pela sua fidelidade. Até ao próximo domingo!"'
+                },
+                tone: { fr: 'Ton : Enthousiaste', en: 'Tone: Enthusiastic', de: 'Ton: Begeistert', es: 'Tono: Entusiasta', it: 'Tono: Entusiasta', nl: 'Toon: Enthousiast', pt: 'Tom: Entusiástico' }
+            }
+        };
+
+        let currentLang = 'fr';
+        let currentScenario = 'mixed';
+        let langInitComplete = false;
+
+        async function detectLanguageByIP() {
+            try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 3000);
+                const response = await fetch('https://ipapi.co/json/', { signal: controller.signal });
+                clearTimeout(timeout);
+                const data = await response.json();
+                const countryLangMap = {
+                    'FR': 'fr', 'BE': 'fr', 'CH': 'fr', 'LU': 'fr', 'MC': 'fr', 'MA': 'fr', 'DZ': 'fr', 'TN': 'fr', 'SN': 'fr', 'CI': 'fr',
+                    'US': 'en', 'GB': 'en', 'CA': 'en', 'AU': 'en', 'IE': 'en', 'NZ': 'en',
+                    'DE': 'de', 'AT': 'de',
+                    'ES': 'es', 'MX': 'es', 'AR': 'es', 'CO': 'es', 'CL': 'es', 'PE': 'es',
+                    'IT': 'it',
+                    'NL': 'nl',
+                    'PT': 'pt', 'BR': 'pt'
+                };
+                const mappedLang = countryLangMap[data.country_code] || 'en';
+                localStorage.setItem('detectedLang', mappedLang);
+                if (!localStorage.getItem('userLang') && mappedLang !== 'fr') showLangBanner(mappedLang);
+                langInitComplete = true;
+                return mappedLang;
+            } catch {
+                langInitComplete = true;
+                return detectBrowserLanguage();
+            }
+        }
+
+        function detectBrowserLanguage() {
+            const lang = (navigator.language || 'en').split('-')[0];
+            return translations.available.includes(lang) ? lang : 'en';
+        }
+
+        function showLangBanner(lang) {
+            const banner = document.getElementById('lang-banner');
+            const textFn = translations.lang_banner_text[lang] || translations.lang_banner_text['en'];
+            document.getElementById('lang-banner-text').textContent = textFn(translations.langNames[lang]);
+            banner.classList.remove('hidden');
+            document.getElementById('lang-banner-accept').onclick = () => { setLanguage(lang); localStorage.setItem('userLang', lang); banner.classList.add('hidden'); };
+            document.getElementById('lang-banner-dismiss').onclick = () => banner.classList.add('hidden');
+        }
+
+        function setLanguage(lang) {
+            if (!translations.available.includes(lang)) lang = 'en';
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[key]?.[lang]) {
+                    if (['INPUT','TEXTAREA'].includes(el.tagName)) el.placeholder = translations[key][lang];
+                    else if (el.tagName === 'META') el.setAttribute('content', translations[key][lang]);
+                    else el.textContent = translations[key][lang];
+                }
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[key]?.[lang]) el.placeholder = translations[key][lang];
+            });
+            document.title = translations.meta_title[lang] || document.title;
+            document.getElementById('current-lang-label').textContent = translations.langCodes[lang];
+            document.querySelectorAll('.lang-option, .mobile-lang-option').forEach(opt => {
+                opt.classList.toggle('active-lang', opt.getAttribute('data-lang') === lang);
+            });
+            localStorage.setItem('userLang', lang);
+            document.getElementById('lang-banner')?.classList.add('hidden');
+            updateSimulator(true);
+        }
+
+        // --- MACHINE À ÉCRIRE ---
+        let typewriterInterval = null;
+        function typeWriter(element, text, speed = 25, onComplete = null) {
+            if (typewriterInterval) clearInterval(typewriterInterval);
+            element.textContent = '';
+            element.classList.add('typewriter-cursor');
+            let i = 0;
+            typewriterInterval = setInterval(() => {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typewriterInterval);
+                    element.classList.remove('typewriter-cursor');
+                    if (onComplete) onComplete();
+                }
+            }, speed);
+        }
+
+        // --- TIMELINE ET SIMULATEUR ---
+        function playTimeline() {
+            const steps = [document.getElementById('step-1'), document.getElementById('step-2'), document.getElementById('step-3')];
+            steps.forEach(s => s.classList.remove('active'));
+            const responseCard = document.getElementById('sim-response-card');
+            const responseText = document.getElementById('sim-response-text');
+            responseCard.style.opacity = '0';
+            responseText.classList.remove('typewriter-cursor');
+            if (typewriterInterval) clearInterval(typewriterInterval);
+            
+            setTimeout(() => steps[0].classList.add('active'), 100);
+            setTimeout(() => steps[1].classList.add('active'), 800);
+            setTimeout(() => {
+                steps[2].classList.add('active');
+                responseCard.style.opacity = '1';
+                const s = simScenarios[currentScenario];
+                const l = currentLang;
+                typeWriter(responseText, s.response[l] || s.response['en'], 22);
+            }, 1600);
+        }
+
+        function updateSimulator(skipAnimation = false) {
+            const s = simScenarios[currentScenario];
+            const l = currentLang;
+            document.getElementById('sim-avatar').textContent = s.avatar;
+            document.getElementById('sim-author').textContent = s.author;
+            document.getElementById('sim-stars').innerHTML = s.stars + ' <span class="text-zinc-500 text-xs ml-2">' + (translations.demo_time_ago[l] || '2 min ago') + '</span>';
+            document.getElementById('sim-review-text').textContent = s.review[l] || s.review['en'];
+            document.getElementById('sim-tone-label').textContent = s.tone[l] || s.tone['en'];
+            
+            if (!skipAnimation) {
+                playTimeline();
+            } else {
+                if (typewriterInterval) clearInterval(typewriterInterval);
+                const responseText = document.getElementById('sim-response-text');
+                responseText.classList.remove('typewriter-cursor');
+                responseText.textContent = s.response[l] || s.response['en'];
+                document.getElementById('sim-response-card').style.opacity = '1';
+            }
+        }
+
+        document.querySelectorAll('.sim-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (typewriterInterval) clearInterval(typewriterInterval);
+                document.getElementById('sim-response-text').classList.remove('typewriter-cursor');
+                
+                document.querySelectorAll('.sim-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentScenario = btn.getAttribute('data-scenario');
+                const reviewCard = document.getElementById('sim-review-card');
+                reviewCard.classList.add('switching');
+                
+                setTimeout(() => { 
+                    updateSimulator(false); 
+                    reviewCard.classList.remove('switching'); 
+                }, 200);
+            });
+        });
+
+        // --- COMPTEUR ANIMÉ ---
+        function animateCounter() {
+            const hoursEl = document.getElementById('counter-hours');
+            const minutesEl = document.getElementById('counter-minutes');
+            if (!hoursEl || !minutesEl) return;
+            
+            const targetHours = 4, targetMinutes = 32;
+            const duration = 2000;
+            const startTime = performance.now();
+            
+            function update(currentTime) {
+                const progress = Math.min((currentTime - startTime) / duration, 1);
+                const ease = 1 - Math.pow(1 - progress, 3);
+                hoursEl.textContent = Math.floor(targetHours * ease);
+                minutesEl.textContent = Math.floor(targetMinutes * ease);
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    hoursEl.textContent = targetHours;
+                    minutesEl.textContent = targetMinutes;
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter();
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        const counterSection = document.getElementById('counter-hours')?.closest('section');
+        if (counterSection) {
+            counterObserver.observe(counterSection);
+            // Fallback pour déclencher le compteur si l'observer échoue sur certains mobiles
+            setTimeout(() => {
+                if (counterSection.getBoundingClientRect().top < window.innerHeight && document.getElementById('counter-hours').textContent === "0") {
+                    animateCounter();
+                }
+            }, 3000);
+        }
+
+        // --- SCROLL PROGRESS ---
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            document.getElementById('scroll-progress').style.width = docHeight > 0 ? (scrollTop / docHeight) * 100 + '%' : '0%';
+        }, { passive: true });
+
+        // --- FAQ ---
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(o => {
+                    o.classList.remove('active');
+                    const a = o.querySelector('.faq-answer');
+                    a.style.maxHeight = '0'; a.style.opacity = '0'; a.style.marginTop = '0';
+                    o.querySelector('h4').style.color = '';
+                    o.querySelector('svg').style.transform = 'rotate(0deg)'; o.querySelector('svg').style.color = '';
+                    o.style.borderColor = '#27272a';
+                });
+                if (!isActive) {
+                    item.classList.add('active');
+                    const a = item.querySelector('.faq-answer');
+                    a.style.maxHeight = a.scrollHeight + 'px'; a.style.opacity = '1'; a.style.marginTop = '0.75rem';
+                    item.querySelector('h4').style.color = '#34d399';
+                    const chevron = item.querySelector('svg');
+                    chevron.style.transform = 'rotate(180deg)'; chevron.style.color = '#34d399';
+                    item.style.borderColor = '#3f3f46';
+                }
+            });
+        });
+
+        // --- ANIMATION SCROLL GÉNÉRALE ---
+        const observerOnScroll = new IntersectionObserver((e) => e.forEach(entry => { 
+            if (entry.isIntersecting) { entry.target.classList.add('visible'); observerOnScroll.unobserve(entry.target); } 
+        }), { threshold: 0.1 });
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observerOnScroll.observe(el));
+
+        // --- MENUS MOBILES ET LANGUES ---
+        const mmb = document.getElementById('mobile-menu-btn'), mm = document.getElementById('mobile-menu');
+        const mlb = document.getElementById('mobile-lang-btn'), mlm = document.getElementById('mobile-lang-menu');
+        
+        // Ajout des labels d'accessibilité manquants
+        if(mlb && !mlb.getAttribute('aria-label')) mlb.setAttribute('aria-label', 'Changer la langue');
+        if(mmb && !mmb.getAttribute('aria-label')) mmb.setAttribute('aria-label', 'Menu principal');
+
+        function closeAll() { mm?.classList.add('hidden'); mlm?.classList.add('hidden'); if(mmb) mmb.setAttribute('aria-expanded','false'); document.body.style.overflow = ''; }
+        mmb?.addEventListener('click', () => { const o = !mm.classList.contains('hidden'); if(o) closeAll(); else { mlm.classList.add('hidden'); mm.classList.remove('hidden'); mmb.setAttribute('aria-expanded','true'); document.body.style.overflow = 'hidden'; } });
+        mlb?.addEventListener('click', () => { const o = !mlm.classList.contains('hidden'); if(o) closeAll(); else { mm.classList.add('hidden'); mmb.setAttribute('aria-expanded','false'); mlm.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } });
+        document.querySelectorAll('#mobile-menu a[href^="#"]').forEach(l => l.addEventListener('click', closeAll));
+        window.addEventListener('scroll', () => { if(document.body.style.overflow==='hidden') closeAll(); }, {passive:true});
+        document.addEventListener('click', (e) => { if(!mm?.contains(e.target)&&!mmb?.contains(e.target)&&!mlm?.contains(e.target)&&!mlb?.contains(e.target)) closeAll(); });
+
+        const lsb = document.getElementById('lang-selector-btn'), ld = document.getElementById('lang-dropdown'), lc = document.getElementById('lang-chevron');
+        lsb?.addEventListener('click', (e) => { e.stopPropagation(); const o = ld.classList.contains('active'); ld.classList.toggle('active',!o); lc.style.transform = o?'rotate(0deg)':'rotate(180deg)'; lsb.setAttribute('aria-expanded',String(!o)); });
+        document.querySelectorAll('.lang-option, .mobile-lang-option').forEach(o => o.addEventListener('click', (e) => { e.stopPropagation(); setLanguage(o.getAttribute('data-lang')); ld?.classList.remove('active'); if(lc) lc.style.transform='rotate(0deg)'; lsb?.setAttribute('aria-expanded','false'); closeAll(); }));
+        document.addEventListener('click', () => { if(ld?.classList.contains('active')) { ld.classList.remove('active'); lc.style.transform='rotate(0deg)'; lsb?.setAttribute('aria-expanded','false'); } });
+
+        document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) { e.preventDefault(); const t = document.querySelector(this.getAttribute('href')); if(t) t.scrollIntoView({behavior:'smooth',block:'start'}); }));
+
+        // --- FORMULAIRE EMAIL ---
+        function handleEmailSubmit(e) {
+            e.preventDefault();
+            const inp = document.getElementById('email-input');
+            const btn = document.getElementById('email-submit-btn');
+            const btnText = btn.querySelector('.btn-text');
+            
+            if(!inp.value?.includes('@')) { 
+                inp.style.borderColor='#ef4444'; 
+                inp.focus(); 
+                setTimeout(()=>inp.style.borderColor='#3f3f46',2000); 
+                return; 
+            }
+            
+            btn.classList.add('btn-loading');
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.classList.remove('btn-loading');
+                const msgs = {fr:'✅ Envoyé !',en:'✅ Sent!',de:'✅ Gesendet!',es:'✅ ¡Enviado!',it:'✅ Inviato!',nl:'✅ Verzonden!',pt:'✅ Enviado!'};
+                const orig = btnText.textContent; 
+                btnText.textContent = msgs[currentLang] || '✅ Sent!'; 
+                btn.classList.add('bg-brand-700'); 
+                inp.value = '';
+                
+                setTimeout(() => { 
+                    btnText.textContent = orig; 
+                    btn.classList.remove('bg-brand-700'); 
+                    btn.disabled = false; 
+                }, 3000);
+            }, 1500);
+        }
+
+        // --- INITIALISATION ---
+        async function initLanguage() {
+            const ul = localStorage.getItem('userLang');
+            if (ul && translations.available.includes(ul)) {
+                setLanguage(ul);
+                langInitComplete = true;
+            } else {
+                const detected = await detectLanguageByIP();
+                if (!ul) setLanguage(detected);
+            }
+        }
+        initLanguage();
+        
+        window.addEventListener('load', () => {
+            const savedLang = localStorage.getItem('userLang');
+            if (savedLang && translations.available.includes(savedLang)) {
+                setLanguage(savedLang);
+            }
+            updateSimulator(true);
+        });
+    </script>
+</body>
+</html>
